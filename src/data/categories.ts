@@ -4,7 +4,7 @@ export const categories = [
   {
     id: "epoxy-resins",
     name: "Epoxy Resins",
-    icon: Flask,
+    icon: Beaker,
     description: "High-performance epoxy powder coating resins",
     productCount: 45,
     subcategories: ["Bisphenol A Epoxy", "Novolac Epoxy", "Hybrid Epoxy", "Low-Cure Epoxy", "Anti-Corrosion Epoxy"],
