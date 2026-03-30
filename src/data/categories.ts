@@ -1,4 +1,4 @@
-import { Flask, Palette, Zap, Layers, Sparkles, Box, Eye, Cog } from "lucide-react";
+import { Beaker, Palette, Zap, Layers, Sparkles, Box, Eye, Cog } from "lucide-react";
 
 export const categories = [
   {
