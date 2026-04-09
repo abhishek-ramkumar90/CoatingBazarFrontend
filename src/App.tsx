@@ -18,6 +18,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/prices" element={<AllPricesPage />} />
           <Route path="/category/:categoryId" element={<CategoryPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
