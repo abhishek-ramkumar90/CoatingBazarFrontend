@@ -7,9 +7,9 @@ const Footer = () => (
       <div>
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <span className="text-sm font-bold text-primary-foreground">PC</span>
+            <span className="text-sm font-bold text-primary-foreground">CB</span>
           </div>
-          <span className="font-display font-bold text-foreground">PowderCoat<span className="text-primary">Hub</span></span>
+          <span className="font-display font-bold text-foreground">Coating<span className="text-primary">Bazaar</span></span>
         </div>
         <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
           India's largest B2B platform for powder coating raw materials procurement and credit.

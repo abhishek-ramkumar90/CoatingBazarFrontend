@@ -12,11 +12,11 @@ const Navbar = () => {
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-            <span className="text-lg font-bold text-primary-foreground">PC</span>
+            <span className="text-lg font-bold text-primary-foreground">CB</span>
           </div>
           <div>
-            <span className="text-lg font-display font-bold text-foreground">PowderCoat</span>
-            <span className="text-lg font-display font-bold text-primary">Hub</span>
+            <span className="text-lg font-display font-bold text-foreground">Coating</span>
+            <span className="text-lg font-display font-bold text-primary">Bazaar</span>
           </div>
         </Link>
 
