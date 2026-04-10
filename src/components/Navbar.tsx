@@ -1,10 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import { Search, BarChart3, Newspaper, ShoppingCart, Info, LogIn } from "lucide-react";
-import { categories } from "@/data/categories";
+import { useCategories } from "@/hooks/useCategories";
 import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   const location = useLocation();
+  const { data: categories = [] } = useCategories();
 
   return (
     <header className="sticky top-0 z-50 border-b border-nav-border bg-nav-bg shadow-sm">
