@@ -3,12 +3,13 @@ import { ChevronRight, TrendingUp, TrendingDown, BarChart3, MessageCircle, Arrow
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { categories } from "@/data/categories";
+import { useCategories } from "@/hooks/useCategories";
 import { productsByCategory } from "@/data/products";
 import { Button } from "@/components/ui/button";
 
 const CategoryPage = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
+  const { data: categories = [] } = useCategories();
   const category = categories.find((c) => c.id === categoryId);
   const products = categoryId ? productsByCategory[categoryId] || [] : [];
 
@@ -81,7 +82,6 @@ const CategoryPage = () => {
 
           {/* Price Table */}
           <div className="lg:col-span-3">
-            {/* Header */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <BarChart3 className="h-5 w-5 text-primary" />
@@ -94,7 +94,6 @@ const CategoryPage = () => {
               </Button>
             </div>
 
-            {/* Table */}
             <div className="rounded-xl border border-border bg-card overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full">
