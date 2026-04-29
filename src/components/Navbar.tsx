@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Search, BarChart3, Newspaper, ShoppingCart, Info, LogIn } from "lucide-react";
 import { useCategories } from "@/hooks/useCategories";
 import { Button } from "@/components/ui/button";
+import LoginDialog from "@/components/LoginDialog";
 
 const Navbar = () => {
   const location = useLocation();
   const { data: categories = [] } = useCategories();
+  const [loginOpen, setLoginOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-nav-border bg-nav-bg shadow-sm">
@@ -34,7 +37,7 @@ const Navbar = () => {
           <button className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             <Info className="h-4 w-4" /> About Us
           </button>
-          <Button size="sm" className="gap-1.5">
+          <Button size="sm" className="gap-1.5" onClick={() => setLoginOpen(true)}>
             <LogIn className="h-4 w-4" /> Login Now
           </Button>
         </div>
@@ -67,6 +70,7 @@ const Navbar = () => {
           })}
         </div>
       </div>
+      <LoginDialog open={loginOpen} onOpenChange={setLoginOpen} />
     </header>
   );
 };
