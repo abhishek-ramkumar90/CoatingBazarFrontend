@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { TrendingUp, TrendingDown, BarChart3, MessageCircle, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -6,8 +7,12 @@ import Footer from "@/components/Footer";
 import { categories } from "@/data/categories";
 import { productsByCategory } from "@/data/products";
 import { Button } from "@/components/ui/button";
+import RequirementDialog from "@/components/RequirementDialog";
 
 const AllPricesPage = () => {
+  const [reqOpen, setReqOpen] = useState(false);
+  const [reqProduct, setReqProduct] = useState("");
+  const openRequirement = (name: string) => { setReqProduct(name); setReqOpen(true); };
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(price);
 
@@ -91,7 +96,7 @@ const AllPricesPage = () => {
                           </td>
                           <td className="px-4 py-3.5">
                             <div className="flex items-center justify-end gap-2">
-                              <Button size="sm" variant="outline" className="text-primary border-primary hover:bg-primary hover:text-primary-foreground text-xs h-8">
+                              <Button onClick={() => openRequirement(product.name)} size="sm" variant="outline" className="text-primary border-primary hover:bg-primary hover:text-primary-foreground text-xs h-8">
                                 Buy
                               </Button>
                               <button className="p-1.5 rounded-md hover:bg-secondary transition-colors text-muted-foreground">
@@ -114,6 +119,7 @@ const AllPricesPage = () => {
       </div>
 
       <Footer />
+      <RequirementDialog open={reqOpen} onOpenChange={setReqOpen} productName={reqProduct} />
     </div>
   );
 };
