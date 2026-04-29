@@ -70,6 +70,7 @@ const Navbar = () => {
           })}
         </div>
       </div>
+      <LoginDialog open={loginOpen} onOpenChange={setLoginOpen} />
     </header>
   );
 };
