@@ -119,6 +119,7 @@ const AllPricesPage = () => {
       </div>
 
       <Footer />
+      <RequirementDialog open={reqOpen} onOpenChange={setReqOpen} productName={reqProduct} />
     </div>
   );
 };
