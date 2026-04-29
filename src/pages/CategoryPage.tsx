@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ChevronRight, TrendingUp, TrendingDown, BarChart3, MessageCircle, ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
@@ -6,12 +7,16 @@ import Footer from "@/components/Footer";
 import { useCategories } from "@/hooks/useCategories";
 import { productsByCategory } from "@/data/products";
 import { Button } from "@/components/ui/button";
+import RequirementDialog from "@/components/RequirementDialog";
 
 const CategoryPage = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
   const { data: categories = [] } = useCategories();
   const category = categories.find((c) => c.id === categoryId);
   const products = categoryId ? productsByCategory[categoryId] || [] : [];
+  const [reqOpen, setReqOpen] = useState(false);
+  const [reqProduct, setReqProduct] = useState("");
+  const openRequirement = (name: string) => { setReqProduct(name); setReqOpen(true); };
 
   if (!category) {
     return (
