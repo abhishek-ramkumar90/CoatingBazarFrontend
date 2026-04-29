@@ -37,7 +37,7 @@ const Navbar = () => {
           <button className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             <Info className="h-4 w-4" /> About Us
           </button>
-          <Button size="sm" className="gap-1.5">
+          <Button size="sm" className="gap-1.5" onClick={() => setLoginOpen(true)}>
             <LogIn className="h-4 w-4" /> Login Now
           </Button>
         </div>
