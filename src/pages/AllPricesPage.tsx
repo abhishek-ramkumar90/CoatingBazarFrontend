@@ -96,7 +96,7 @@ const AllPricesPage = () => {
                           </td>
                           <td className="px-4 py-3.5">
                             <div className="flex items-center justify-end gap-2">
-                              <Button size="sm" variant="outline" className="text-primary border-primary hover:bg-primary hover:text-primary-foreground text-xs h-8">
+                              <Button onClick={() => openRequirement(product.name)} size="sm" variant="outline" className="text-primary border-primary hover:bg-primary hover:text-primary-foreground text-xs h-8">
                                 Buy
                               </Button>
                               <button className="p-1.5 rounded-md hover:bg-secondary transition-colors text-muted-foreground">
