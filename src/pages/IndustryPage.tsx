@@ -89,12 +89,16 @@ const IndustryPage = () => {
           <TabsList>
             <TabsTrigger value="ral">RAL Classic ({ralClassic.length})</TabsTrigger>
             <TabsTrigger value="pantone">Pantone ({pantoneColors.length})</TabsTrigger>
+            <TabsTrigger value="search">Color Search</TabsTrigger>
           </TabsList>
           <TabsContent value="ral" className="mt-6">
             <ColorGrid colors={ralClassic} />
           </TabsContent>
           <TabsContent value="pantone" className="mt-6">
             <ColorGrid colors={pantoneColors} />
+          </TabsContent>
+          <TabsContent value="search" className="mt-6">
+            <ColorSearch />
           </TabsContent>
         </Tabs>
       </div>
