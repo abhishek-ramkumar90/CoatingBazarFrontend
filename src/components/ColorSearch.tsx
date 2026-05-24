@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-import colorNameList from "color-name-list";
+import { colornames } from "color-name-list";
 import { Input } from "@/components/ui/input";
 
 type NamedColor = { name: string; hex: string };
-const ALL: NamedColor[] = colorNameList as NamedColor[];
+const ALL: NamedColor[] = colornames as NamedColor[];
 
 const isLight = (hex: string) => {
   const c = hex.replace("#", "");
