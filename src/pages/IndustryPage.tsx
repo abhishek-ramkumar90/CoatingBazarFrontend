@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { industries } from "@/data/industries";
 import { ralClassic, pantoneColors, ColorSwatch } from "@/data/colors";
+import ColorSearch from "@/components/ColorSearch";
 
 const isLight = (hex: string) => {
   const c = hex.replace("#", "");
