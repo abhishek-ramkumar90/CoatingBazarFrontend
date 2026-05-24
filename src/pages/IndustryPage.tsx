@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { industries } from "@/data/industries";
 import { ralClassic, pantoneColors, ColorSwatch } from "@/data/colors";
+import ColorSearch from "@/components/ColorSearch";
 
 const isLight = (hex: string) => {
   const c = hex.replace("#", "");
@@ -88,12 +89,16 @@ const IndustryPage = () => {
           <TabsList>
             <TabsTrigger value="ral">RAL Classic ({ralClassic.length})</TabsTrigger>
             <TabsTrigger value="pantone">Pantone ({pantoneColors.length})</TabsTrigger>
+            <TabsTrigger value="search">Color Search</TabsTrigger>
           </TabsList>
           <TabsContent value="ral" className="mt-6">
             <ColorGrid colors={ralClassic} />
           </TabsContent>
           <TabsContent value="pantone" className="mt-6">
             <ColorGrid colors={pantoneColors} />
+          </TabsContent>
+          <TabsContent value="search" className="mt-6">
+            <ColorSearch />
           </TabsContent>
         </Tabs>
       </div>
