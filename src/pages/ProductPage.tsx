@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { industries } from "@/data/industries";
+import { setSelection } from "@/lib/orderSelection";
 
 const ProductPage = () => {
   const { productName } = useParams<{ productName: string }>();

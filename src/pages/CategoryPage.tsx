@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { categories } from "@/data/categories";
 import { productsByCategory } from "@/data/products";
+import { setSelection } from "@/lib/orderSelection";
 
 const CategoryPage = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -66,6 +67,7 @@ const CategoryPage = () => {
             >
               <Link
                 to={`/product/${encodeURIComponent(p.name)}`}
+                onClick={() => setSelection({ categoryId: category.id, categoryName: category.name, productName: p.name, industryId: undefined, industryName: undefined, colorSystem: undefined, colorCode: undefined, colorName: undefined, colorHex: undefined })}
                 className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-border bg-card p-6 h-36 hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 transition-all"
               >
                 <FlaskConical className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
