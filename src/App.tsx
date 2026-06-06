@@ -8,6 +8,7 @@ import CategoryPage from "./pages/CategoryPage.tsx";
 import AllPricesPage from "./pages/AllPricesPage.tsx";
 import ProductPage from "./pages/ProductPage.tsx";
 import IndustryPage from "./pages/IndustryPage.tsx";
+import CheckoutPage from "./pages/CheckoutPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/category/:categoryId" element={<CategoryPage />} />
           <Route path="/product/:productName" element={<ProductPage />} />
           <Route path="/industry/:industryId" element={<IndustryPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { categories } from "@/data/categories";
+import { setSelection } from "@/lib/orderSelection";
 
 const CategoriesGrid = () => {
   return (
@@ -24,6 +25,7 @@ const CategoriesGrid = () => {
             >
               <Link
                 to={`/category/${cat.id}`}
+                onClick={() => setSelection({ categoryId: cat.id, categoryName: cat.name, productName: undefined, industryId: undefined, industryName: undefined, colorSystem: undefined, colorCode: undefined, colorName: undefined, colorHex: undefined })}
                 className="group flex flex-col items-center justify-center gap-2 rounded-xl border border-border bg-card p-4 h-32 hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 transition-all"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-badge-bg group-hover:bg-primary/10 transition-colors">

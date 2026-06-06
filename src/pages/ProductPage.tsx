@@ -1,13 +1,16 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { industries } from "@/data/industries";
+import { setSelection } from "@/lib/orderSelection";
 
 const ProductPage = () => {
   const { productName } = useParams<{ productName: string }>();
   const name = decodeURIComponent(productName || "");
+  useEffect(() => { if (name) setSelection({ productName: name }); }, [name]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -44,6 +47,7 @@ const ProductPage = () => {
             >
               <Link
                 to={`/industry/${ind.id}`}
+                onClick={() => setSelection({ productName: name, industryId: ind.id, industryName: ind.name, colorSystem: undefined, colorCode: undefined, colorName: undefined, colorHex: undefined })}
                 className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-border bg-card p-6 h-36 hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 transition-all"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-badge-bg group-hover:bg-primary/10 transition-colors">

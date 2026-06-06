@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FlaskConical } from "lucide-react";
 import { motion } from "framer-motion";
 import { productsByCategory } from "@/data/products";
+import { setSelection } from "@/lib/orderSelection";
 
 const ProductsGrid = () => {
   const allProducts = Object.values(productsByCategory).flat();
@@ -34,6 +35,7 @@ const ProductsGrid = () => {
             >
               <Link
                 to={`/product/${encodeURIComponent(p.name)}`}
+                onClick={() => setSelection({ categoryId: undefined, categoryName: undefined, productName: p.name, industryId: undefined, industryName: undefined, colorSystem: undefined, colorCode: undefined, colorName: undefined, colorHex: undefined })}
                 className="group flex flex-col items-center justify-center gap-2 rounded-xl border border-border bg-card p-4 h-32 hover:shadow-md hover:border-primary/40 transition-all"
               >
                 <FlaskConical className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />

@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import { colornames } from "color-name-list";
 import { Input } from "@/components/ui/input";
+import { setSelection } from "@/lib/orderSelection";
 
 type NamedColor = { name: string; hex: string };
 const ALL: NamedColor[] = colornames as NamedColor[];
@@ -16,6 +18,12 @@ const isLight = (hex: string) => {
 
 const ColorSearch = () => {
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const pick = (c: NamedColor) => {
+    setSelection({ colorSystem: "Color Search", colorCode: undefined, colorName: c.name, colorHex: c.hex });
+    navigate("/checkout");
+  };
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -58,9 +66,11 @@ const ColorSearch = () => {
           {results.map((c) => {
             const light = isLight(c.hex);
             return (
-              <div
+              <button
+                type="button"
                 key={c.name + c.hex}
-                className="rounded-xl overflow-hidden border border-border shadow-sm hover:shadow-md transition-shadow bg-card"
+                onClick={() => pick(c)}
+                className="text-left rounded-xl overflow-hidden border border-border shadow-sm hover:shadow-md hover:border-primary/40 transition-all bg-card"
               >
                 <div
                   className="h-32 flex items-end p-2"
@@ -75,7 +85,7 @@ const ColorSearch = () => {
                     {c.name}
                   </div>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>

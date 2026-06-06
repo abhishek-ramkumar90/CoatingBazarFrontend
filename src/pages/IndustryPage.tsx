@@ -1,4 +1,5 @@
-import { useParams, Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -6,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { industries } from "@/data/industries";
 import { ralClassic, pantoneColors, ColorSwatch } from "@/data/colors";
 import ColorSearch from "@/components/ColorSearch";
+import { setSelection } from "@/lib/orderSelection";
 
 const isLight = (hex: string) => {
   const c = hex.replace("#", "");
@@ -15,14 +17,16 @@ const isLight = (hex: string) => {
   return (r * 299 + g * 587 + b * 114) / 1000 > 150;
 };
 
-const ColorGrid = ({ colors }: { colors: ColorSwatch[] }) => (
+const ColorGrid = ({ colors, system, onPick }: { colors: ColorSwatch[]; system: "RAL Classic" | "Pantone"; onPick: (c: ColorSwatch, sys: "RAL Classic" | "Pantone") => void }) => (
   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3">
     {colors.map((c) => {
       const light = isLight(c.hex);
       return (
-        <div
+        <button
+          type="button"
           key={c.code}
-          className="rounded-lg overflow-hidden border border-border shadow-sm hover:shadow-md transition-shadow"
+          onClick={() => onPick(c, system)}
+          className="text-left rounded-lg overflow-hidden border border-border shadow-sm hover:shadow-md hover:border-primary/40 transition-all"
         >
           <div
             className="h-20 flex items-end p-2"
@@ -36,7 +40,7 @@ const ColorGrid = ({ colors }: { colors: ColorSwatch[] }) => (
               <div className="text-[11px] text-muted-foreground truncate">{c.name}</div>
             )}
           </div>
-        </div>
+        </button>
       );
     })}
   </div>
@@ -44,7 +48,18 @@ const ColorGrid = ({ colors }: { colors: ColorSwatch[] }) => (
 
 const IndustryPage = () => {
   const { industryId } = useParams<{ industryId: string }>();
+  const navigate = useNavigate();
   const industry = industries.find((i) => i.id === industryId);
+
+  useEffect(() => {
+    if (industry) setSelection({ industryId: industry.id, industryName: industry.name });
+  }, [industry]);
+
+  const pickColor = (c: ColorSwatch, system: "RAL Classic" | "Pantone") => {
+    setSelection({ colorSystem: system, colorCode: c.code, colorName: c.name, colorHex: c.hex });
+    navigate("/checkout");
+  };
+
 
   if (!industry) {
     return (
@@ -92,10 +107,10 @@ const IndustryPage = () => {
             <TabsTrigger value="search">Color Search</TabsTrigger>
           </TabsList>
           <TabsContent value="ral" className="mt-6">
-            <ColorGrid colors={ralClassic} />
+            <ColorGrid colors={ralClassic} system="RAL Classic" onPick={pickColor} />
           </TabsContent>
           <TabsContent value="pantone" className="mt-6">
-            <ColorGrid colors={pantoneColors} />
+            <ColorGrid colors={pantoneColors} system="Pantone" onPick={pickColor} />
           </TabsContent>
           <TabsContent value="search" className="mt-6">
             <ColorSearch />
