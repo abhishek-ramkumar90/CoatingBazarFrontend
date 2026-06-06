@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FlaskConical } from "lucide-react";
 import { motion } from "framer-motion";
 import { productsByCategory } from "@/data/products";
+import { setSelection } from "@/lib/orderSelection";
 
 const ProductsGrid = () => {
   const allProducts = Object.values(productsByCategory).flat();
