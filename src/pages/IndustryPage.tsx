@@ -48,7 +48,18 @@ const ColorGrid = ({ colors, system, onPick }: { colors: ColorSwatch[]; system: 
 
 const IndustryPage = () => {
   const { industryId } = useParams<{ industryId: string }>();
+  const navigate = useNavigate();
   const industry = industries.find((i) => i.id === industryId);
+
+  useEffect(() => {
+    if (industry) setSelection({ industryId: industry.id, industryName: industry.name });
+  }, [industry]);
+
+  const pickColor = (c: ColorSwatch, system: "RAL Classic" | "Pantone") => {
+    setSelection({ colorSystem: system, colorCode: c.code, colorName: c.name, colorHex: c.hex });
+    navigate("/checkout");
+  };
+
 
   if (!industry) {
     return (
@@ -96,10 +107,10 @@ const IndustryPage = () => {
             <TabsTrigger value="search">Color Search</TabsTrigger>
           </TabsList>
           <TabsContent value="ral" className="mt-6">
-            <ColorGrid colors={ralClassic} />
+            <ColorGrid colors={ralClassic} system="RAL Classic" onPick={pickColor} />
           </TabsContent>
           <TabsContent value="pantone" className="mt-6">
-            <ColorGrid colors={pantoneColors} />
+            <ColorGrid colors={pantoneColors} system="Pantone" onPick={pickColor} />
           </TabsContent>
           <TabsContent value="search" className="mt-6">
             <ColorSearch />
