@@ -9,6 +9,8 @@ import { setSelection } from "@/lib/orderSelection";
 const ProductPage = () => {
   const { productName } = useParams<{ productName: string }>();
   const name = decodeURIComponent(productName || "");
+  // Persist product name in case user landed directly
+  if (name) setSelection({ productName: name });
 
   return (
     <div className="min-h-screen bg-background">
