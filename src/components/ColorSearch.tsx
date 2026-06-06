@@ -66,9 +66,11 @@ const ColorSearch = () => {
           {results.map((c) => {
             const light = isLight(c.hex);
             return (
-              <div
+              <button
+                type="button"
                 key={c.name + c.hex}
-                className="rounded-xl overflow-hidden border border-border shadow-sm hover:shadow-md transition-shadow bg-card"
+                onClick={() => pick(c)}
+                className="text-left rounded-xl overflow-hidden border border-border shadow-sm hover:shadow-md hover:border-primary/40 transition-all bg-card"
               >
                 <div
                   className="h-32 flex items-end p-2"
@@ -83,7 +85,7 @@ const ColorSearch = () => {
                     {c.name}
                   </div>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
