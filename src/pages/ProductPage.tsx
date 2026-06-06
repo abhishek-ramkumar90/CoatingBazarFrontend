@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
@@ -9,8 +10,7 @@ import { setSelection } from "@/lib/orderSelection";
 const ProductPage = () => {
   const { productName } = useParams<{ productName: string }>();
   const name = decodeURIComponent(productName || "");
-  // Persist product name in case user landed directly
-  if (name) setSelection({ productName: name });
+  useEffect(() => { if (name) setSelection({ productName: name }); }, [name]);
 
   return (
     <div className="min-h-screen bg-background">
