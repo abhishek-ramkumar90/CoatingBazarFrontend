@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { FlaskConical } from "lucide-react";
 import { motion } from "framer-motion";
 import { productsByCategory } from "@/data/products";
 import { setSelection } from "@/lib/orderSelection";
+import { getProductTileIcon } from "@/lib/productTileIcon";
 
 const ProductsGrid = () => {
   const allProducts = Object.values(productsByCategory).flat();
@@ -25,7 +25,9 @@ const ProductsGrid = () => {
         </p>
 
         <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3">
-          {uniqueProducts.map((p, i) => (
+          {uniqueProducts.map((p, i) => {
+            const ProductIcon = getProductTileIcon(p.name);
+            return (
             <motion.div
               key={p.id}
               initial={{ opacity: 0, y: 10 }}
@@ -38,13 +40,14 @@ const ProductsGrid = () => {
                 onClick={() => setSelection({ categoryId: undefined, categoryName: undefined, productName: p.name, industryId: undefined, industryName: undefined, colorSystem: undefined, colorCode: undefined, colorName: undefined, colorHex: undefined })}
                 className="group flex flex-col items-center justify-center gap-2 rounded-xl border border-border bg-card p-4 h-32 hover:shadow-md hover:border-primary/40 transition-all"
               >
-                <FlaskConical className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
+                <ProductIcon className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
                 <span className="text-center text-sm font-medium text-foreground line-clamp-2 leading-tight">
                   {p.name}
                 </span>
               </Link>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

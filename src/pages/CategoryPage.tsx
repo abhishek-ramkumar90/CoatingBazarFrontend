@@ -1,24 +1,15 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, FlaskConical } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { categories } from "@/data/categories";
-import { productsByCategory } from "@/data/products";
+import { industries } from "@/data/industries";
 import { setSelection } from "@/lib/orderSelection";
 
 const CategoryPage = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
   const category = categories.find((c) => c.id === categoryId);
-  const products = categoryId ? productsByCategory[categoryId] || [] : [];
-
-  // Deduplicate products by name
-  const seen = new Set<string>();
-  const uniqueProducts = products.filter((p) => {
-    if (seen.has(p.name)) return false;
-    seen.add(p.name);
-    return true;
-  });
 
   if (!category) {
     return (
@@ -48,31 +39,33 @@ const CategoryPage = () => {
 
       <div className="container pb-6">
         <h1 className="text-2xl md:text-3xl font-display font-bold text-foreground">
-          {category.name} — Products
+          {category.name} — Choose Industry
         </h1>
         <p className="mt-1 text-sm text-muted-foreground max-w-3xl">
-          {category.description}. Click on any product to view the industries it serves.
+          Select an industry to view products and solutions for {category.name.toLowerCase()}.
         </p>
       </div>
 
       <div className="container pb-16">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {uniqueProducts.map((p, i) => (
+          {industries.map((industry, i) => (
             <motion.div
-              key={p.id}
+              key={industry.id}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: i * 0.03 }}
               viewport={{ once: true }}
             >
               <Link
-                to={`/product/${encodeURIComponent(p.name)}`}
-                onClick={() => setSelection({ categoryId: category.id, categoryName: category.name, productName: p.name, industryId: undefined, industryName: undefined, colorSystem: undefined, colorCode: undefined, colorName: undefined, colorHex: undefined })}
+                to={`/industry/${encodeURIComponent(industry.id)}`}
+                onClick={() => setSelection({ categoryId: category.id, categoryName: category.name, industryId: industry.id, industryName: industry.name, productName: undefined, colorSystem: undefined, colorCode: undefined, colorName: undefined, colorHex: undefined })}
                 className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-border bg-card p-6 h-36 hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 transition-all"
               >
-                <FlaskConical className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-badge-bg group-hover:bg-primary/10 transition-colors">
+                  <industry.icon className="h-6 w-6 text-badge-text group-hover:text-primary transition-colors" />
+                </div>
                 <span className="text-center text-sm font-medium text-foreground line-clamp-2 leading-tight">
-                  {p.name}
+                  {industry.name}
                 </span>
               </Link>
             </motion.div>

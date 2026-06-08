@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Search, BarChart3, Newspaper, ShoppingCart, Info, LogIn } from "lucide-react";
+import { BarChart3, Newspaper, ShoppingCart, Info, LogIn } from "lucide-react";
 import { useCategories } from "@/hooks/useCategories";
 import { Button } from "@/components/ui/button";
 import LoginDialog from "@/components/LoginDialog";

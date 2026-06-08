@@ -6,8 +6,14 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { getSelection, clearSelection } from "@/lib/orderSelection";
+import { sendOrderEmail } from "@/services/api";
 
 const quantityOptions = ["1-15 MT", "16 MT", "16-30 MT", "30+ MT"];
+
+const CHEMISTRY_OPTIONS = ["Indoor", "Outdoor"];
+const FINISH_OPTIONS = ["Smooth", "Structure", "Texture", "Antique", "Metallic", "Crinkle", "Transparent", "Aligator"];
+const GLOSS_OPTIONS_POWDER = ["Glossy", "Semi Glossy", "Satin"];
+const GLOSS_OPTIONS_LIQUID = ["Glossy", "Semi Glossy", "Satin", "Metallic", "Galaxy"];
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -18,6 +24,12 @@ const CheckoutPage = () => {
   const [mobile, setMobile] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const [chemistry, setChemistry] = useState("");
+  const [finish, setFinish] = useState("");
+  const [gloss, setGloss] = useState("");
+
+  const isPowderCoating = selection.categoryId === "powder-coating";
+  const isLiquidPaints = selection.categoryId === "liquid-paints";
 
   useEffect(() => {
     setSel(getSelection());
@@ -31,11 +43,6 @@ const CheckoutPage = () => {
     return parts.join(" ");
   }, [selection]);
 
-  const price = useMemo(() => {
-    // deterministic pseudo-price from name length
-    const base = (title.length * 7) % 200 + 80;
-    return base;
-  }, [title]);
 
   const sendOtp = () => {
     if (!/^\d{10}$/.test(mobile)) {
@@ -46,16 +53,43 @@ const CheckoutPage = () => {
     toast({ title: "OTP sent", description: "Use 123456 to verify (demo)." });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!company.trim()) return toast({ title: "Company name required", variant: "destructive" });
     if (!/^\d{6}$/.test(pincode)) return toast({ title: "Enter a valid 6-digit pincode", variant: "destructive" });
     if (!/^\d{10}$/.test(mobile)) return toast({ title: "Enter a valid mobile number", variant: "destructive" });
     if (!otpSent || otp.length < 4) return toast({ title: "Verify OTP first", variant: "destructive" });
 
-    toast({ title: "Order Captured!", description: "Our team will contact you shortly." });
-    clearSelection();
-    setTimeout(() => navigate("/"), 800);
+    const colour = [selection.colorCode, selection.colorName, selection.colorHex]
+      .filter(Boolean)
+      .join(" - ");
+
+    try {
+      await sendOrderEmail({
+        subject: "order request",
+        quantity,
+        companyname: company.trim(),
+        pincode,
+        contactnumber: mobile,
+        category: selection.categoryName || "",
+        product: selection.productName || "",
+        industry: selection.industryName || "",
+        colour,
+        chemistry,
+        finish,
+        gloss,
+      });
+
+      toast({ title: "Order Captured!", description: "Our team will contact you shortly." });
+      clearSelection();
+      setTimeout(() => navigate("/"), 800);
+    } catch {
+      toast({
+        title: "Failed to submit order",
+        description: "Please try again in a moment.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -88,11 +122,6 @@ const CheckoutPage = () => {
               <button className="h-9 w-9 rounded-md bg-primary/10 text-primary flex items-center justify-center shrink-0">
                 <Share2 className="h-4 w-4" />
               </button>
-            </div>
-
-            <div className="flex items-baseline gap-1">
-              <span className="text-4xl font-bold text-foreground">₹{price}</span>
-              <span className="text-sm text-muted-foreground">/KG</span>
             </div>
 
             <div className="flex items-center gap-2 text-xs">
@@ -162,6 +191,20 @@ const CheckoutPage = () => {
               </div>
             </div>
 
+            {/* Powder Coating conditional dropdowns */}
+            {isPowderCoating && (
+              <>
+                <FormSelect label="Chemistry" value={chemistry} onChange={setChemistry} options={CHEMISTRY_OPTIONS} placeholder="Select Chemistry" />
+                <FormSelect label="Finish" value={finish} onChange={setFinish} options={FINISH_OPTIONS} placeholder="Select Finish" />
+                <FormSelect label="Gloss" value={gloss} onChange={setGloss} options={GLOSS_OPTIONS_POWDER} placeholder="Select Gloss" />
+              </>
+            )}
+
+            {/* Liquid Paints conditional dropdown */}
+            {isLiquidPaints && (
+              <FormSelect label="Gloss" value={gloss} onChange={setGloss} options={GLOSS_OPTIONS_LIQUID} placeholder="Select Gloss" />
+            )}
+
             <FormInput label="Your Company Name" value={company} onChange={setCompany} placeholder="Enter Your Company Name" />
             <FormInput label="Delivery Pincode" value={pincode} onChange={(v) => setPincode(v.replace(/\D/g, "").slice(0, 6))} placeholder="Enter Pincode" />
 
@@ -214,6 +257,22 @@ const FormInput = ({ label, value, onChange, placeholder }: { label: string; val
       placeholder={placeholder}
       className="w-full rounded-md border border-input px-3 py-2.5 text-sm bg-background outline-none focus:ring-2 focus:ring-ring"
     />
+  </div>
+);
+
+const FormSelect = ({ label, value, onChange, options, placeholder }: { label: string; value: string; onChange: (v: string) => void; options: string[]; placeholder?: string }) => (
+  <div>
+    <label className="block text-sm font-semibold mb-1.5">{label}</label>
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full rounded-md border border-input px-3 py-2.5 text-sm bg-background outline-none focus:ring-2 focus:ring-ring"
+    >
+      <option value="" disabled>{placeholder || `Select ${label}`}</option>
+      {options.map((opt) => (
+        <option key={opt} value={opt}>{opt}</option>
+      ))}
+    </select>
   </div>
 );
 

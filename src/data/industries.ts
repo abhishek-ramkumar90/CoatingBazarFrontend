@@ -1,6 +1,5 @@
 import {
-  Car, Building2, Pill, Paintbrush, Wrench, Shirt, Package, Sprout,
-  Cpu, Sparkles, UtensilsCrossed, Fuel, Plane, Ship, Hammer, Factory,
+  Sprout, Building2, Home, Factory, Hammer, Car, Sofa, Zap,
   LucideIcon,
 } from "lucide-react";
 
@@ -11,20 +10,13 @@ export interface Industry {
 }
 
 export const industries: Industry[] = [
-  { id: "automotive", name: "Automotive", icon: Car },
-  { id: "construction", name: "Construction", icon: Building2 },
-  { id: "pharmaceutical", name: "Pharmaceutical", icon: Pill },
-  { id: "paints-coatings", name: "Paints & Coatings", icon: Paintbrush },
-  { id: "adhesives", name: "Adhesives & Sealants", icon: Wrench },
-  { id: "textile", name: "Textile", icon: Shirt },
-  { id: "packaging", name: "Packaging", icon: Package },
+  { id: "general-industry", name: "General Industry", icon: Factory },
   { id: "agriculture", name: "Agriculture", icon: Sprout },
-  { id: "electronics", name: "Electronics", icon: Cpu },
-  { id: "cosmetics", name: "Cosmetics & Personal Care", icon: Sparkles },
-  { id: "food-beverage", name: "Food & Beverage", icon: UtensilsCrossed },
-  { id: "oil-gas", name: "Oil & Gas", icon: Fuel },
-  { id: "aerospace", name: "Aerospace", icon: Plane },
-  { id: "marine", name: "Marine", icon: Ship },
-  { id: "manufacturing", name: "Manufacturing", icon: Hammer },
-  { id: "industrial", name: "Industrial", icon: Factory },
+  { id: "home-appliance", name: "Home Appliance", icon: Home },
+  { id: "industrial", name: "Industrial", icon: Hammer },
+  { id: "architectural", name: "Architectural", icon: Building2 },
+  { id: "automotive", name: "Automotive", icon: Car },
+  { id: "furniture", name: "Furniture", icon: Sofa },
+  { id: "genset", name: "Genset", icon: Zap }
+
 ];
