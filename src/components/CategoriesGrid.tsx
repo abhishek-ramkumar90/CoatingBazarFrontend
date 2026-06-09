@@ -8,11 +8,11 @@ interface CategoriesGridProps {
 }
 
 const CategoriesGrid = ({ highlightQuery = "" }: CategoriesGridProps) => {
-  const tokens = highlightQuery
-    .trim()
-    .toLowerCase()
-    .split(/\s+/)
-    .filter(Boolean);
+  const normalize = (value: string) =>
+    value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+
+  const normalizedQuery = normalize(highlightQuery);
+  const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
 
   return (
     <section className="py-16">
@@ -28,7 +28,8 @@ const CategoriesGrid = ({ highlightQuery = "" }: CategoriesGridProps) => {
           {categories.map((cat, i) => {
             const isHighlighted =
               tokens.length > 0 &&
-              tokens.every((t) => cat.name.toLowerCase().includes(t));
+              (normalize(cat.name).includes(normalizedQuery) ||
+                tokens.some((t) => normalize(cat.name).includes(t)));
 
             return (
               <motion.div
