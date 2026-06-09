@@ -1,21 +1,18 @@
-import { useState } from "react";
 import { Search } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { categories } from "@/data/categories";
 
 const quickLinks = ["Epoxy Resin", "TiO2", "Polyester", "Flow Agent", "Hardener"];
 
-const HeroSection = () => {
-  const [query, setQuery] = useState("");
-  const navigate = useNavigate();
+interface HeroSectionProps {
+  query: string;
+  onQueryChange: (value: string) => void;
+  onSearchSubmit?: (query: string) => void;
+}
 
+const HeroSection = ({ query, onQueryChange, onSearchSubmit }: HeroSectionProps) => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const match = categories.find((c) =>
-      c.name.toLowerCase().includes(query.toLowerCase())
-    );
-    if (match) navigate(`/category/${match.id}`);
+    onSearchSubmit?.(query);
   };
 
   return (
@@ -60,8 +57,8 @@ const HeroSection = () => {
             <input
               type="text"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search for Epoxy Resin, Polyester, TiO2..."
+              onChange={(e) => onQueryChange(e.target.value)}
+              placeholder="Search categories or products (e.g. Powder Coating, Epoxy)..."
               className="h-14 w-full rounded-l-xl border-0 bg-white pl-12 pr-4 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
