@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { industries } from "@/data/industries";
 import { productsByCategory } from "@/data/products";
 import { getSelection, setSelection } from "@/lib/orderSelection";
-import { getProductTileIcon } from "@/lib/productTileIcon";
+import { getProductTileImage } from "@/lib/productTileImage";
 
 const IndustryPage = () => {
   const { industryId } = useParams<{ industryId: string }>();
@@ -70,9 +70,9 @@ const IndustryPage = () => {
       </div>
 
       <div className="container pb-16">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3">
           {uniqueProducts.map((product, i) => {
-            const ProductIcon = getProductTileIcon(product.name);
+            const imageUrl = getProductTileImage(product.name);
             return (
             <motion.div
               key={product.id}
@@ -84,11 +84,14 @@ const IndustryPage = () => {
               <Link
                 to={`/product/${encodeURIComponent(product.name)}`}
                 onClick={() => setSelection({ productName: product.name, colorSystem: undefined, colorCode: undefined, colorName: undefined, colorHex: undefined })}
-                className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-border bg-card p-6 h-36 hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 transition-all"
+                className="group flex flex-col gap-2 rounded-xl border border-border bg-card p-2 h-44 hover:shadow-md hover:border-primary/40 transition-all"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-badge-bg group-hover:bg-primary/10 transition-colors">
-                  <ProductIcon className="h-6 w-6 text-badge-text group-hover:text-primary transition-colors" />
-                </div>
+                <img
+                  src={imageUrl}
+                  alt={product.name}
+                  loading="lazy"
+                  className="h-24 w-full rounded-md object-cover"
+                />
                 <span className="text-center text-sm font-medium text-foreground line-clamp-2 leading-tight">
                   {product.name}
                 </span>
