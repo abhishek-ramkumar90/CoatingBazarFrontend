@@ -8,6 +8,7 @@ import { industries } from "@/data/industries";
 import { productsByCategory } from "@/data/products";
 import { getSelection, setSelection } from "@/lib/orderSelection";
 import { getProductTileImage } from "@/lib/productTileImage";
+import { getIndustryTileImage } from "@/lib/industryTileImage";
 
 const IndustryPage = () => {
   const { industryId } = useParams<{ industryId: string }>();
@@ -43,7 +44,7 @@ const IndustryPage = () => {
     );
   }
 
-  const Icon = industry.icon;
+  const industryImageUrl = getIndustryTileImage(industry.id);
 
   return (
     <div className="min-h-screen bg-background">
@@ -55,9 +56,11 @@ const IndustryPage = () => {
       </div>
       <div className="container pb-6">
         <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-badge-bg">
-            <Icon className="h-7 w-7 text-badge-text" />
-          </div>
+          <img
+            src={industryImageUrl}
+            alt={industry.name}
+            className="h-14 w-14 rounded-xl object-cover"
+          />
           <div>
             <h1 className="text-2xl md:text-3xl font-display font-bold text-foreground">
               {categoryName} — {industry.name}

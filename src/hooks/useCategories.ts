@@ -1,18 +1,10 @@
 import { categories, Category } from "@/data/categories";
-import { LucideIcon } from "lucide-react";
-
-export interface CategoryWithIcon extends Category {
-  icon: LucideIcon;
-}
 
 export const useCategories = () => {
-  const categoriesWithIcons: CategoryWithIcon[] = categories.map((cat) => ({
-    ...cat,
-    icon: cat.icon,
-  }));
+  const categoriesData: Category[] = categories;
 
   return {
-    data: categoriesWithIcons,
+    data: categoriesData,
     isLoading: false,
     error: null,
   };

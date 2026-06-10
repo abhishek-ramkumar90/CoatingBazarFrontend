@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { categories } from "@/data/categories";
 import { industries } from "@/data/industries";
 import { setSelection } from "@/lib/orderSelection";
+import { getIndustryTileImage } from "@/lib/industryTileImage";
 
 const CategoryPage = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -47,31 +48,39 @@ const CategoryPage = () => {
       </div>
 
       <div className="container pb-16">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {industries.map((industry, i) => (
-            <motion.div
-              key={industry.id}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: i * 0.03 }}
-              viewport={{ once: true }}
-            >
-              <Link
-                to={`/industry/${encodeURIComponent(industry.id)}`}
-                onClick={() => setSelection({ categoryId: category.id, categoryName: category.name, industryId: industry.id, industryName: industry.name, productName: undefined, colorSystem: undefined, colorCode: undefined, colorName: undefined, colorHex: undefined })}
-                className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-border bg-card p-6 h-36 hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 transition-all"
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3">
+          {industries.map((industry, i) => {
+            const imageUrl = getIndustryTileImage(industry.id);
+            return (
+              <motion.div
+                key={industry.id}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: i * 0.03 }}
+                viewport={{ once: true }}
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-badge-bg group-hover:bg-primary/10 transition-colors">
-                  <industry.icon className="h-6 w-6 text-badge-text group-hover:text-primary transition-colors" />
-                </div>
-                <span className="text-center text-sm font-medium text-foreground line-clamp-2 leading-tight">
-                  {industry.name}
-                </span>
-              </Link>
-            </motion.div>
-          ))}
+                <Link
+                  to={`/industry/${encodeURIComponent(industry.id)}`}
+                  onClick={() => setSelection({ categoryId: category.id, categoryName: category.name, industryId: industry.id, industryName: industry.name, productName: undefined, colorSystem: undefined, colorCode: undefined, colorName: undefined, colorHex: undefined })}
+                  className="group flex flex-col gap-2 rounded-xl border border-border bg-card p-2 h-44 hover:shadow-md hover:border-primary/40 transition-all"
+                >
+                  <img
+                    src={imageUrl}
+                    alt={industry.name}
+                    loading="lazy"
+                    className="h-24 w-full rounded-md object-cover"
+                  />
+                  <span className="text-center text-sm font-medium text-foreground line-clamp-2 leading-tight">
+                    {industry.name}
+                  </span>
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
+
+
 
       <Footer />
     </div>
