@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { productsByCategory } from "@/data/products";
 import { setSelection } from "@/lib/orderSelection";
-import { getProductTileIcon } from "@/lib/productTileIcon";
+import { getProductTileImage } from "@/lib/productTileImage";
 
 interface ProductsGridProps {
   highlightQuery?: string;
@@ -36,7 +36,7 @@ const ProductsGrid = ({ highlightQuery = "" }: ProductsGridProps) => {
 
         <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3">
           {uniqueProducts.map((p, i) => {
-            const ProductIcon = getProductTileIcon(p.name);
+            const imageUrl = getProductTileImage(p.name);
             const isHighlighted =
               tokens.length > 0 &&
               (normalize(p.name).includes(normalizedQuery) ||
@@ -54,13 +54,18 @@ const ProductsGrid = ({ highlightQuery = "" }: ProductsGridProps) => {
               <Link
                 to={`/product/${encodeURIComponent(p.name)}`}
                 onClick={() => setSelection({ categoryId: undefined, categoryName: undefined, productName: p.name, industryId: undefined, industryName: undefined, colorSystem: undefined, colorCode: undefined, colorName: undefined, colorHex: undefined })}
-                className={`group flex flex-col items-center justify-center gap-2 rounded-xl border bg-card p-4 h-32 hover:shadow-md hover:border-primary/40 transition-all ${
+                className={`group flex flex-col gap-2 rounded-xl border bg-card p-2 h-44 hover:shadow-md hover:border-primary/40 transition-all ${
                   isHighlighted
                     ? "border-primary bg-primary/5 ring-1 ring-primary/40"
                     : "border-border"
                 }`}
               >
-                <ProductIcon className={`h-10 w-10 transition-colors ${isHighlighted ? "text-primary" : "text-muted-foreground group-hover:text-primary"}`} />
+                <img
+                  src={imageUrl}
+                  alt={p.name}
+                  loading="lazy"
+                  className="h-24 w-full rounded-md object-cover"
+                />
                 <span className="text-center text-sm font-medium text-foreground line-clamp-2 leading-tight">
                   {p.name}
                 </span>
