@@ -9,6 +9,8 @@ import AllPricesPage from "./pages/AllPricesPage.tsx";
 import ProductPage from "./pages/ProductPage.tsx";
 import IndustryPage from "./pages/IndustryPage.tsx";
 import CheckoutPage from "./pages/CheckoutPage.tsx";
+import CustomSolutionsPage from "./pages/CustomSolutionsPage.tsx";
+import SimpleInfoPage from "./pages/SimpleInfoPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -22,6 +24,10 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/prices" element={<AllPricesPage />} />
+          <Route path="/knowledge-hub" element={<SimpleInfoPage title="Knowledge Hub" description="Articles, technical notes, and coating insights are being prepared." />} />
+          <Route path="/custom-solutions" element={<CustomSolutionsPage />} />
+          <Route path="/build-your-paint-shop" element={<SimpleInfoPage title="Build Your Paint Shop" description="A guided setup experience for your paint shop is coming soon." />} />
+          <Route path="/enter-india" element={<SimpleInfoPage title="Enter India" description="Market-entry support for coatings manufacturers will be available here shortly." />} />
           <Route path="/category/:categoryId" element={<CategoryPage />} />
           <Route path="/product/:productName" element={<ProductPage />} />
           <Route path="/industry/:industryId" element={<IndustryPage />} />

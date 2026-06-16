@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { BarChart3, Newspaper, ShoppingCart, Info, LogIn } from "lucide-react";
+import { BarChart3, LogIn } from "lucide-react";
 import { useCategories } from "@/hooks/useCategories";
 import { Button } from "@/components/ui/button";
 import LoginDialog from "@/components/LoginDialog";
@@ -9,6 +9,7 @@ const Navbar = () => {
   const location = useLocation();
   const { data: categories = [] } = useCategories();
   const [loginOpen, setLoginOpen] = useState(false);
+  const isTopMenuActive = (path: string) => location.pathname === path;
 
   return (
     <header className="sticky top-0 z-50 border-b border-nav-border bg-nav-bg shadow-sm">
@@ -25,18 +26,46 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
-          <Link to="/prices" className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+          <Link
+            to="/prices"
+            className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${
+              isTopMenuActive("/prices") ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
             <BarChart3 className="h-4 w-4" /> Prices
           </Link>
-          <button className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            <Newspaper className="h-4 w-4" /> News
-          </button>
-          <button className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            <ShoppingCart className="h-4 w-4" /> Orders
-          </button>
-          <button className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            <Info className="h-4 w-4" /> About Us
-          </button>
+          <Link
+            to="/knowledge-hub"
+            className={`text-sm font-medium transition-colors ${
+              isTopMenuActive("/knowledge-hub") ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Knowledge Hub
+          </Link>
+          <Link
+            to="/custom-solutions"
+            className={`text-sm font-medium transition-colors ${
+              isTopMenuActive("/custom-solutions") ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Custom Solutions
+          </Link>
+          <Link
+            to="/build-your-paint-shop"
+            className={`text-sm font-medium transition-colors ${
+              isTopMenuActive("/build-your-paint-shop") ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Build Your Paint Shop
+          </Link>
+          <Link
+            to="/enter-india"
+            className={`text-sm font-medium transition-colors ${
+              isTopMenuActive("/enter-india") ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Enter India
+          </Link>
           <Button size="sm" className="gap-1.5" onClick={() => setLoginOpen(true)}>
             <LogIn className="h-4 w-4" /> Login Now
           </Button>

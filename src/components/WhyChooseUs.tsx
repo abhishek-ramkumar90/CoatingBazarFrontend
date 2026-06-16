@@ -12,7 +12,7 @@ const WhyChooseUs = () => (
   <section className="py-16 bg-card border-y border-border">
     <div className="container">
       <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground text-center">
-        Why Choose PowderCoatHub?
+        Why Choose CoatingBazaar?
       </h2>
       <p className="mt-2 text-center text-muted-foreground">
         The trusted platform for powder coating raw material procurement

@@ -54,7 +54,7 @@ const Footer = () => (
 
     <div className="container mt-8 pt-6 border-t border-border">
       <p className="text-xs text-muted-foreground text-center">
-        © 2026 PowderCoatHub. All rights reserved.
+        © 2026 CoatingBazaar. All rights reserved.
       </p>
     </div>
   </footer>

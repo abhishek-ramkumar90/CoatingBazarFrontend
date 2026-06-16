@@ -3,6 +3,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 
+
 interface RequirementDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -17,6 +18,7 @@ const RequirementDialog = ({ open, onOpenChange, productName = "" }: Requirement
   const [pincode, setPincode] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
+
 
   useEffect(() => {
     if (open) setProduct(productName);
