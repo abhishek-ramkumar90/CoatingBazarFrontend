@@ -30,6 +30,7 @@ export interface SendEnquiryEmailRequest {
     companyname: string;
     sector: string;
     contactnumber: string;
+    contactperson:string;
     surface: string;
     environment: string;
     requirement: string;

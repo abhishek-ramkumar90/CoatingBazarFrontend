@@ -55,6 +55,7 @@ const CustomSolutionsPage = () => {
         companyname: company.trim(),
         sector: industry.trim(),
         contactnumber: phone.trim(),
+        contactperson: "",
         surface: substrate.trim(),
         environment: environment.trim(),
         requirement: details.trim(),
@@ -91,8 +92,19 @@ const CustomSolutionsPage = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <section className="bg-slate-900 text-white">
-        <div className="container grid gap-8 py-12 md:grid-cols-[1.4fr_1fr]">
+      <section
+        className="relative overflow-hidden text-white"
+        style={{ background: "var(--hero-gradient)" }}
+      >
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+        <div className="container relative z-10 grid gap-8 py-12 md:grid-cols-[1.4fr_1fr]">
           <div>
             <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Custom coating solutions</h1>
             <p className="mt-3 max-w-2xl text-sm text-slate-200 md:text-base">
