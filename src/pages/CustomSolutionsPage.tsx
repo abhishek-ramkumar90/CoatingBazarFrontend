@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { sendEnquiry } from "@/services/api.ts";
+import { useSeo } from "@/hooks/useSeo";
 
 type RequirementType =
   | "New product formulation"
@@ -26,6 +27,14 @@ const requirementTypes: RequirementType[] = [
 ];
 
 const CustomSolutionsPage = () => {
+  useSeo({
+    title: "Custom Paint and Coating Formulations | CoatingBazaar",
+    description:
+      "Submit your custom coating requirement for formulation, testing, private label, and protective paint solutions.",
+    canonicalPath: "/custom-solutions",
+    keywords: ["custom coatings", "paint formulation", "private label paints", "protective coatings"],
+  });
+
   const [selectedType, setSelectedType] = useState<RequirementType>("New product formulation");
   const [company, setCompany] = useState("");
   const [industry, setIndustry] = useState("");

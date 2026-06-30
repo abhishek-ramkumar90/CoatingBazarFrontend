@@ -9,6 +9,7 @@ import { productsByCategory } from "@/data/products";
 import { getSelection, setSelection } from "@/lib/orderSelection";
 import { getProductTileImage } from "@/lib/productTileImage";
 import { getIndustryTileImage } from "@/lib/industryTileImage";
+import { useSeo } from "@/hooks/useSeo";
 
 const IndustryPage = () => {
   const { industryId } = useParams<{ industryId: string }>();
@@ -16,6 +17,18 @@ const IndustryPage = () => {
   const selection = getSelection();
   const categoryId = selection.categoryId;
   const categoryName = selection.categoryName;
+
+  useSeo({
+    title: industry && categoryName
+      ? `${categoryName} for ${industry.name} Industry | CoatingBazaar`
+      : "Industry Selection | CoatingBazaar",
+    description: industry && categoryName
+      ? `Find ${categoryName.toLowerCase()} products built for the ${industry.name.toLowerCase()} industry.`
+      : "Select a category and industry to view suitable paint and coating products.",
+    canonicalPath: industry ? `/industry/${industry.id}` : "/",
+    keywords: [industry?.name, categoryName, "industrial coating", "paint products"].filter(Boolean) as string[],
+    noIndex: !industry || !categoryId,
+  });
 
   // Get products for the selected category
   const products = categoryId ? productsByCategory[categoryId] || [] : [];

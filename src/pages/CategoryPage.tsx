@@ -7,10 +7,23 @@ import { categories } from "@/data/categories";
 import { industries } from "@/data/industries";
 import { setSelection } from "@/lib/orderSelection";
 import { getIndustryTileImage } from "@/lib/industryTileImage";
+import { useSeo } from "@/hooks/useSeo";
 
 const CategoryPage = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
   const category = categories.find((c) => c.id === categoryId);
+
+  useSeo({
+    title: category
+      ? `${category.name} Coatings by Industry | CoatingBazaar`
+      : "Category Not Found | CoatingBazaar",
+    description: category
+      ? `Explore ${category.name.toLowerCase()} options by industry and find suitable paint and coating products.`
+      : "The requested coating category is not available.",
+    canonicalPath: category ? `/category/${category.id}` : "/",
+    keywords: category ? [category.name, "coatings", "industrial paint"] : ["coatingbazaar"],
+    noIndex: !category,
+  });
 
   if (!category) {
     return (

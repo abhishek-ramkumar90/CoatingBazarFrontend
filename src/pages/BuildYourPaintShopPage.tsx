@@ -2,8 +2,17 @@ import { FormEvent, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { toast } from "@/hooks/use-toast";
 import { sendEnquiry } from "@/services/api.ts";
+import { useSeo } from "@/hooks/useSeo";
 
 const BuildYourPaintShopPage = () => {
+  useSeo({
+    title: "Build Your Industrial Paint Shop | CoatingBazaar",
+    description:
+      "Plan and launch your industrial paint shop with support for design, compliance, equipment procurement, and commissioning.",
+    canonicalPath: "/build-your-paint-shop",
+    keywords: ["paint shop setup", "industrial paint plant", "powder coating line setup"],
+  });
+
   const [companyName, setCompanyName] = useState("");
   const [contactPerson, setContactPerson] = useState("");
   const [emailAddress, setEmailAddress] = useState("");

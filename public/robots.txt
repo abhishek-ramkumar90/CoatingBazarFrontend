@@ -12,3 +12,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://coatingbazaar.com/sitemap.xml
+Host: coatingbazaar.com
+

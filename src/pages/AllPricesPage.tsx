@@ -8,10 +8,30 @@ import { categories } from "@/data/categories";
 import { productsByCategory } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import RequirementDialog from "@/components/RequirementDialog";
+import { useSeo } from "@/hooks/useSeo";
 
 const AllPricesPage = () => {
   const [reqOpen, setReqOpen] = useState(false);
   const [reqProduct, setReqProduct] = useState("");
+
+  useSeo({
+    title: "Live Paint and Coating Prices | CoatingBazaar",
+    description:
+      "Track live prices for powder coating and liquid paint materials across categories and locations.",
+    canonicalPath: "/prices",
+    keywords: ["paint prices", "powder coating prices", "industrial coating rates", "coatingbazaar"],
+    jsonLd: [
+      {
+        id: "prices-collection",
+        data: {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Live Paint and Coating Prices",
+          url: `${window.location.origin}/prices`,
+        },
+      },
+    ],
+  });
   const openRequirement = (name: string) => { setReqProduct(name); setReqOpen(true); };
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(price);

@@ -2,6 +2,7 @@ import { FormEvent, useRef, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { toast } from "@/hooks/use-toast";
 import { sendEnquiry } from "@/services/api.ts";
+import { useSeo } from "@/hooks/useSeo";
 
 const stats = [
   { title: "1.4B+", description: "Consumers" },
@@ -38,6 +39,14 @@ const processSteps = [
 ];
 
 const EnterIndiaPage = () => {
+  useSeo({
+    title: "Enter India for Paint and Coating Businesses | CoatingBazaar",
+    description:
+      "Expand your paint and coating business in India with support for market entry strategy, compliance, partners, and supply chain.",
+    canonicalPath: "/enter-india",
+    keywords: ["enter india", "paint business india", "coating market india", "india market entry"],
+  });
+
   const contactSectionRef = useRef<HTMLDivElement | null>(null);
   const [companyName, setCompanyName] = useState("");
   const [contactPerson, setContactPerson] = useState("");

@@ -7,6 +7,7 @@ import {Button} from "@/components/ui/button";
 import {toast} from "@/hooks/use-toast";
 import {getSelection, clearSelection} from "@/lib/orderSelection";
 import {sendOrderEmail} from "@/services/api";
+import { useSeo } from "@/hooks/useSeo";
 
 const quantityOptions = ["1-15 MT", "16 MT", "16-30 MT", "30+ MT"];
 
@@ -28,6 +29,13 @@ const CheckoutPage = () => {
     const [chemistry, setChemistry] = useState("");
     const [finish, setFinish] = useState("");
     const [gloss, setGloss] = useState("");
+
+    useSeo({
+        title: "Checkout | CoatingBazaar",
+        description: "Complete your coating requirement and request pricing from CoatingBazaar.",
+        canonicalPath: "/checkout",
+        noIndex: true,
+    });
 
     const isPowderCoating = selection.categoryId === "powder-coating";
     const isLiquidPaints = selection.categoryId === "liquid-paints";

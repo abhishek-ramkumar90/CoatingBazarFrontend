@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { ralClassic, pantoneColors, ColorSwatch } from "@/data/colors";
 import ColorSearch from "@/components/ColorSearch";
 import { setSelection } from "@/lib/orderSelection";
+import { useSeo } from "@/hooks/useSeo";
 
 type ColorSystem = "RAL Classic" | "Pantone";
 
@@ -124,6 +125,16 @@ const ProductPage = () => {
   const navigate = useNavigate();
   const name = decodeURIComponent(productName || "");
   const [colorQuery, setColorQuery] = useState("");
+
+  useSeo({
+    title: name ? `${name} Colors and Shades | CoatingBazaar` : "Product Colors | CoatingBazaar",
+    description: name
+      ? `Browse ${name} color options in RAL Classic and Pantone systems for your coating requirement.`
+      : "Browse coating product color options in RAL and Pantone systems.",
+    canonicalPath: name ? `/product/${encodeURIComponent(name)}` : "/",
+    keywords: [name, "RAL colors", "Pantone colors", "paint color chart"].filter(Boolean) as string[],
+    noIndex: !name,
+  });
 
   const filteredRal = useMemo(
     () => ralClassic.filter((color) => matchesColorQuery(color, colorQuery)),

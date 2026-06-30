@@ -18,3 +18,20 @@ For Render, set this environment variable on the frontend service before the bui
 - `VITE_ENQUIRE_EMAIL_API_URL=https://coating-bazaar-api.onrender.com/coatingbazar/api/email/enquire`
 
 Render will use it during the production build.
+
+## SEO layer
+
+The project now includes a reusable SEO helper and hook:
+
+- `src/lib/seo.ts` manages title, description, canonical, robots, Open Graph, Twitter tags, and JSON-LD script tags.
+- `src/hooks/useSeo.ts` applies page-level SEO metadata from React pages.
+
+### Indexed assets
+
+- `public/robots.txt` includes crawler directives and sitemap reference.
+- `public/sitemap.xml` contains core pages and Knowledge Hub article URLs.
+
+### Adding a new article URL to sitemap
+
+When adding a new Knowledge Hub article in `src/data/articles.ts`, also add its URL entry to `public/sitemap.xml`.
+
