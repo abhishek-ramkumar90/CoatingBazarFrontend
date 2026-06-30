@@ -10,6 +10,7 @@ const Navbar = () => {
   const { data: categories = [] } = useCategories();
   const [loginOpen, setLoginOpen] = useState(false);
   const isTopMenuActive = (path: string) => location.pathname === path;
+  const isKnowledgeHubActive = location.pathname.startsWith("/knowledge-hub");
 
   return (
     <header className="sticky top-0 z-50 border-b border-nav-border bg-nav-bg shadow-sm">
@@ -37,7 +38,7 @@ const Navbar = () => {
           <Link
             to="/knowledge-hub"
             className={`text-sm font-medium transition-colors ${
-              isTopMenuActive("/knowledge-hub") ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              isKnowledgeHubActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
             }`}
           >
             Knowledge Hub
