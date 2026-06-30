@@ -13,6 +13,6 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://coatingbazarfrontend.onrender.com/sitemap.xml
+Sitemap: https://coatingbazaar.com/sitemap.xml
 Host: coatingbazaar.com
 
